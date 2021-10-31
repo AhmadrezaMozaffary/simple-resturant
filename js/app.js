@@ -139,11 +139,31 @@ function displayCart() {
             <p class="titr">کل</p>
             <p class="total-cost">ت${item.inCart * item.price}</p>
           </div>
-          <button class="delbtn btn-primary">حذف</button>
         </div>
         `;
     });
   }
+}
+
+const lastTotalCost = localStorage.getItem("totalCost");
+const taks = lastTotalCost * 0.1;
+if (document.querySelector(".s-price")) {
+  document.querySelector(".s-price").textContent = !lastTotalCost
+    ? 0
+    : lastTotalCost + " ت";
+  document.querySelector(".task-price").textContent = !lastTotalCost
+    ? 0
+    : taks + " ت";
+  document.querySelector(".t-price").textContent = !localStorage.getItem(
+    "totalCost"
+  )
+    ? 0
+    : Number(lastTotalCost) + taks + " ت";
+}
+if (document.querySelector(".btn-msg")) {
+  document.querySelector(".btn-msg").addEventListener("click", () => {
+    localStorage.clear();
+  });
 }
 
 onLoadCartNumbers();
