@@ -526,3 +526,7 @@ input:focus {
   right: 0;
   opacity: 0.25;
 }
+
+.img-lazy-blur {
+  filter: blur(4px);
+}
