@@ -166,5 +166,28 @@ if (document.querySelector(".btn-msg")) {
   });
 }
 
+// Lazy loading on product's images
+const imgTargetsNode = document.querySelectorAll("img[data-src]");
+
+const lazyLoadingProducts = (entries, observer) => {
+  const [entry] = entries;
+  if (!entry.isIntersecting) return;
+
+  entry.target.src = entry.target.dataset.src;
+  entry.target.addEventListener("load", () => {
+    entry.target.classList.remove("img-lazy-blur");
+  });
+
+  productImgsObserver.unobserve(entry.target);
+};
+
+const lazyLoginOptions = { root: null, threshold: 0, rootMargin: "50px" };
+
+const productImgsObserver = new IntersectionObserver(
+  lazyLoadingProducts,
+  lazyLoginOptions
+);
+imgTargetsNode.forEach((img) => productImgsObserver.observe(img));
+
 onLoadCartNumbers();
 displayCart();
